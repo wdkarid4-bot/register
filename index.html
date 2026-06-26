@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARI4D ~ Platform Game Terlengkap & Termudah di Asia. </title>
+    <style>
+        /* --- Root Variables & Reset --- */
+        :root {
+            --bg-dark: #0a0a05; /* Hitam pekat dengan sedikit tint kuning */
+            --gold-primary: #ffdd44;
+            --gold-glow: rgba(255, 221, 68, 0.2);
+            --gold-gradient: linear-gradient(135deg, #ffea75 0%, #d4af37 100%);
+            --text-light: #f5f5f7;
+            --text-muted: #8a8a80;
+            
+            /* MASUKKAN URL GAMBAR BANNER KAMU DI SINI */
+            --banner-img: url('banner.png');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Premium Background Effect */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,221,68,0.08) 0%, rgba(0,0,0,0) 70%);
+            top: 20%;
+            left: -100px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 70%);
+            bottom: 10%;
+            right: -150px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- Header / Logo (Posisi Diperbaiki: Tidak Terlalu Atas) --- */
+        header {
+            width: 100%;
+            padding-top: 60px; /* Diturunkan dengan memberikan ruang kosong di atasnya */
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Styling untuk Logo berbentuk PNG */
+        .logo-png {
+            height: 55px; /* Sesuaikan tinggi logo PNG agar proporsional */
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(255, 221, 68, 0.3)); /* Efek kilau emas premium di sekitar logo */
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        /* Typing Effect */
+        .typing-container {
+            margin-bottom: 25px;
+            text-align: center;
+            height: 30px;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            border-right: 2px solid var(--gold-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 7.5s steps(25, end) infinite, blink-caret 2.0s step-end infinite;
+        }
+
+        /* Premium Banner Container (Murni Gambar & Tajam) */
+        .banner-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 221, 68, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                        0 0 40px rgba(255, 221, 68, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        /* Gambar Banner (Latar Belakang - 100% Tajam) */
+        .banner-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--banner-img);
+            background-size: cover;
+            background-position: center;
+            z-index: 1; 
+        }
+
+        /* Overlay Gelap Tipis di atas Gambar */
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10,10,5,0.15), rgba(10,10,5,0.5));
+            z-index: 2;
+        }
+
+        /* Efek Lingkaran Berputar Murni Transparan (Tanpa Blur) */
+        .banner-circle {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border: 2px dashed rgba(255, 221, 68, 0.45);
+            border-radius: 50%;
+            z-index: 3;
+            pointer-events: none;
+            animation: rotate-clockwise 25s linear infinite;
+        }
+
+        .banner-circle-inner {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border: 1.5px solid rgba(255, 221, 68, 0.6);
+            border-radius: 50%;
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: inset 0 0 30px rgba(255, 221, 68, 0.15); 
+            animation: rotate-counter 18s linear infinite;
+        }
+
+        /* --- Button Group (Sejajar Lebar Banner) --- */
+        .button-group {
+            width: 500px;
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-login {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 221, 68, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 221, 68, 0.5);
+            opacity: 0.95;
+        }
+
+        .btn-register {
+            background: transparent;
+            color: var(--gold-primary);
+            border: 1px solid rgba(255, 221, 68, 0.4);
+        }
+
+        .btn-register:hover {
+            background: rgba(255, 221, 68, 0.08);
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 221, 68, 0.1);
+        }
+
+        /* --- Footer --- */
+        footer {
+            width: 100%;
+            padding: 25px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 221, 68, 0.05);
+            z-index: 10;
+            background: rgba(10, 10, 5, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes rotate-clockwise {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-counter {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        @keyframes typing {
+            0%, 100% { width: 0 }
+            45%, 55% { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--gold-primary); }
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS (iOS & Android) --- */
+        @media (max-width: 600px) {
+            header {
+                padding-top: 40px; /* Menyesuaikan jarak atas logo saat dibuka di handphone */
+            }
+
+            .logo-png {
+                height: 45px; /* Ukuran logo mengecil proporsional di mobile */
+            }
+
+            .banner-container {
+                width: 320px;
+                height: 320px;
+                border-radius: 16px;
+            }
+
+            .banner-circle {
+                width: 240px;
+                height: 240px;
+            }
+
+            .banner-circle-inner {
+                width: 160px;
+                height: 160px;
+            }
+
+            .button-group {
+                width: 320px;
+                gap: 12px;
+                margin-top: 20px;
+            }
+
+            .btn {
+                padding: 14px;
+                font-size: 0.9rem;
+            }
+
+            .typing-text {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .banner-container, .button-group {
+                width: 280px;
+            }
+            .banner-container {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="kari4d1.gif" alt="Luxury Logo" class="logo-png">
+    </header>
+
+    <main>
+        <div class="typing-container">
+            <div class="typing-text">Selamat Datang di Situs KARI4D.</div>
+        </div>
+
+        <div class="banner-container">
+            <div class="banner-overlay"></div>
+            
+            <div class="banner-circle"></div>
+            <div class="banner-circle-inner"></div>
+        </div>
+
+        <div class="button-group">
+            <a href="https://rb.gy/1c6ovo" class="btn btn-login">Masuk</a>
+            <a href="https://rb.gy/1c6ovo" class="btn btn-register">Daftar</a>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 KARI4D ~ KIBOWWW
+    </footer>
+
+</body>
+</html>
